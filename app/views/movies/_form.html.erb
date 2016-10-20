@@ -1,0 +1,34 @@
+<%= form_for([director, movie]) do |f| %>
+  <% if movie.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+      <% movie.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.fields_for :actors do |a| %>
+      Add an Actor <br>
+      <%= a.text_field :name, placeholder: 'name' %>
+    <% end %>
+  </div>
+
+  <%= f.fields_for :director, movie.build_director do |a| %>
+      Add an Director <br>
+      <%= a.text_field :name, placeholder: 'name' %>
+    <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
